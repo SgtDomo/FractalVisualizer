@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="FractalVisualizer.Displayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.15cm"/>
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Source="{Binding Img}"></Image>
+        <ProgressBar Grid.Row="1"
+                     Minimum="{Binding ProgressModel.Min}" 
+                     Maximum="{Binding ProgressModel.Max}"
+                     Value="{Binding ProgressModel.Value}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,82 @@
+﻿<Window x:Class="FractalVisualizer.RenderSettingsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="RenderSettingsDialog" Height="300" Width="300" KeyDown="RenderSettingsDialog_OnKeyDown">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type xctk:IntegerUpDown}">
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+
+            <Style TargetType="{x:Type xctk:DoubleUpDown}">
+                <Setter Property="Margin" Value="5"></Setter>
+            </Style>
+        </Grid.Resources>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="{Binding NonExportRowHeight}"/>
+            <RowDefinition Height="{Binding GifRowHeight}"/>
+            <RowDefinition Height="{Binding GifRowHeight}"/>
+            <RowDefinition Height="{Binding GifRowHeight}"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0">X Resolution:</Label>
+        <xctk:IntegerUpDown Grid.Row="0" Grid.Column="1" Minimum="1" Value="{Binding RenderSettings.ResolutionX}"/>
+
+        <Label Grid.Row="1" Grid.Column="0">YResolution:</Label>
+        <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Value="{Binding RenderSettings.ResolutionY}"/>
+
+        <Label Grid.Row="2" Grid.Column="0">Max-Iterations:</Label>
+        <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Minimum="1" Value="{Binding RenderSettings.MaxIterations}"/>
+
+        <Label Grid.Row="3" Grid.Column="0">Magnifaction Factor:</Label>
+        <xctk:DoubleUpDown Grid.Row="3" Grid.Column="1" Minimum="1" Increment="0.01"
+                           Value="{Binding RenderSettings.MagnificationFactor}"/>
+
+        <Label Grid.Row="4" Grid.Column="0">Gif Magnifaction Factor:</Label>
+        <xctk:DoubleUpDown Grid.Row="4" Grid.Column="1" Minimum="1" Increment="0.01" Value="{Binding RenderSettings.GifMagnificationFactor}"/>
+
+        <Label Grid.Row="5" Grid.Column="0">Gif Start Magnifaction:</Label>
+        <xctk:DoubleUpDown Grid.Row="5" Grid.Column="1" Minimum="1" Increment="0.01" Value="{Binding RenderSettings.GifStartMagnification}"/>
+
+        <Label Grid.Row="6" Grid.Column="0">Gif End Magnifaction:</Label>
+        <xctk:DoubleUpDown Grid.Row="6" Grid.Column="1" Minimum="1" Increment="0.01" Value="{Binding RenderSettings.GifEndMagnification}"/>
+
+        <Label Grid.Row="7" Grid.Column="0">Thread Count:</Label>
+        <xctk:IntegerUpDown Grid.Row="7" Grid.Column="1" Minimum="1" Value="{Binding RenderSettings.ThreadCount}"/>
+
+        <Grid Grid.Row="8" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">X:</Label>
+            <TextBox Grid.Column="1" Text="{Binding RenderSettings.FromX}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
+        </Grid>
+        <Grid Grid.Row="8" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0">Y:</Label>
+            <TextBox Grid.Column="1" Text="{Binding RenderSettings.FromY}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
+        </Grid>
+
+        <TextBox Grid.Row="9" Grid.Column="0" IsReadOnly="True" Margin="5" Text="{Binding RenderSettings.CurrMagnification}" Background="LightGray" HorizontalContentAlignment="Center"></TextBox>
+        <Button Grid.Row="9" Grid.Column="1" Click="ButtonBase_OnClick" Margin="5">OK</Button>
+    </Grid>
+</Window>

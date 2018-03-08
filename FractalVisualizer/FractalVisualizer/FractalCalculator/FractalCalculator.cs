@@ -13,6 +13,9 @@ namespace FractalVisualizer.FractalCalculator
 
         public int MaxIterations { get; set; }
 
+        /// <summary>
+        /// Name of the fractal
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
@@ -23,6 +26,12 @@ namespace FractalVisualizer.FractalCalculator
             return GetIterationsForPoint(point.Real, point.Imaginary);
         }
 
+        /// <summary>
+        /// Calculates the Iterations needed to exeed the bound defined by the fractal. If the iterations reach MaxIterations -1 will be returned
+        /// </summary>
+        /// <param name="x">The real part of the point</param>
+        /// <param name="y">The imagenary part of the point</param>
+        /// <returns>the amount of iterations needed for this point to reach the limit. If it reaches the MaxIterations, -1</returns>
         public virtual int GetIterationsForPoint(double x, double y)
         {
             double x0 = x;
@@ -41,8 +50,19 @@ namespace FractalVisualizer.FractalCalculator
             return iterations;
         }
 
+        /// <summary>
+        /// This here is basically the function of the fractal. Given the complex point Zn (x, y) it returns Zn+1 for the given fractal.
+        /// </summary>
+        /// <param name="x">Real part of current Z</param>
+        /// <param name="y">Imagenary part of current Z</param>
+        /// <param name="x0">Real part of the original point that is currently calculated</param>
+        /// <param name="y0">Imagenary part of the original point that is currently calculated</param>
+        /// <returns></returns>
         public abstract (double x, double y) GetNextZ(double x, double y, double x0, double y0);
 
+        /// <summary>
+        /// Squares a complex number
+        /// </summary>
         protected Complex Square(Complex c)
         {
             double newReal = c.Real * c.Real - c.Imaginary * c.Imaginary;
@@ -50,6 +70,9 @@ namespace FractalVisualizer.FractalCalculator
             return new Complex(newReal, newImagenary);
         }
 
+        /// <summary>
+        /// Calculates the absolute length of the complex vector
+        /// </summary>
         protected double Abs(Complex complex)
         {
             double c = Math.Abs(complex.Real);
@@ -69,6 +92,10 @@ namespace FractalVisualizer.FractalCalculator
 
         }
 
+        /// <summary>
+        /// Returns all fractal calculators (so basically all fractals this tool can display)
+        /// </summary>
+        /// <returns>An array representing all currently implemented fractalCalculators</returns>
         public static FractalCalculator[] GetFractalCalculators()
         {
             return new FractalCalculator[]

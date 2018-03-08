@@ -28,6 +28,7 @@ namespace FractalVisualizer
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.LeftCtrl:
+                case Key.RightCtrl:
                     Displayer.ZoomOut();
                     Displayer.RefreshImageAsync();
                     break;

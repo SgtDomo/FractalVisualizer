@@ -43,7 +43,7 @@ namespace FractalVisualizer
             ProgressModel = new ProgressModel();
             InitFromY(RenderSettings);
             ImageGenerator =
-                new ImageGenerator.ImageGenerator(RenderSettings, ProgressModel, new BurningShipCalculator(RenderSettings.MaxIterations));
+                new ImageGenerator.ImageGenerator(RenderSettings, ProgressModel, new MandelbrotCalculator(RenderSettings.MaxIterations));
 
             RefreshImage();
             _moveByPercentage = 0.25;
@@ -211,7 +211,7 @@ namespace FractalVisualizer
         public void ExportImageAsync()
         {
             RenderSettings renderSettings = RenderSettings.Copy();
-            if (new RenderSettingsDialog(renderSettings, true).ShowDialog() != true)
+            if (new RenderSettingsDialog("Image Export Settings", renderSettings, true).ShowDialog() != true)
             {
                 return;
             }
@@ -238,7 +238,7 @@ namespace FractalVisualizer
             RenderSettings renderSettings = RenderSettings.Copy();
             renderSettings.GifStartMagnification = 1;
             renderSettings.GifEndMagnification = renderSettings.CurrMagnification;
-            if (new RenderSettingsDialog(renderSettings, true, true).ShowDialog() != true)
+            if (new RenderSettingsDialog("Gif Export Settings", renderSettings, true, true).ShowDialog() != true)
             {
                 return;
             }

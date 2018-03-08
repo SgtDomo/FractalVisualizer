@@ -7,7 +7,8 @@
              mc:Ignorable="d" 
              MinWidth="250"
              SizeToContent="WidthAndHeight"
-             KeyDown="FractalChooserDialog_OnKeyDown">
+             KeyDown="FractalChooserDialog_OnKeyDown"
+             Title="Choose A Fractal">
     <Grid Name="MainGrid">
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">

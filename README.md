@@ -5,8 +5,8 @@ FractalVisualizer is a programm to explore and make images of fractals, for exam
 
 ## How do I control it?
 The Controls are fairly simple:
-* Press arrow keys to move
-* Hold shift while moving to make a smaller step
-* Press space to zoom in
-* Press control to zoom out
+* Press arrow keys or WASD to move
+* Hold caps-lock while moving to make a smaller step
+* Press space or E to zoom in
+* Press shift or Q to zoom out
 * In the 'File' menu-item at the top of the screen are multiple options to export the image (even as a animated gif)

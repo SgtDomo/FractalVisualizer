@@ -8,18 +8,27 @@
         Title="MainWindow"
         KeyDown="Window_OnKeyDown"
         Background="Black">
+    <Window.CommandBindings>
+        <CommandBinding Command="Copy" Executed="CopyToClickBoard_Click"/>
+        <CommandBinding Command="Help" Executed="Help_Click"/>
+        <CommandBinding Command="Save" Executed="ImageExport_OnClick"/>
+        <CommandBinding Command="local:CustomCommands.GifExport" Executed="GifExport_OnClick"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="E" Modifiers="Control" Command="local:CustomCommands.GifExport" Gesture="Ctrl+E"></KeyBinding>
+    </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="Black" Foreground="Blue">
             <MenuItem Header="File">
-                <MenuItem Header="Copy To Clipboard" Click="CopyToClickBoard_Click" Foreground="Black"></MenuItem>
-                <MenuItem Header="Image Export" Click="ImageExport_OnClick" Foreground="Black"/>
-                <MenuItem Header="Gif Export" Click="GifExport_OnClick" Foreground="Black"/>
+                <MenuItem Command="Copy" Header="Copy To Clipboard" Click="CopyToClickBoard_Click" Foreground="Black"></MenuItem>
+                <MenuItem Command="Save" Header="Image Export" Foreground="Black"/>
+                <MenuItem Command="local:CustomCommands.GifExport" Header="Gif Export" Foreground="Black" InputGestureText="Ctrl+E"/>
             </MenuItem>
             <MenuItem Header="View">
+                <MenuItem Header="Choose Fractal" Click="ChooseFractal_Click" Foreground="Black"  />
                 <MenuItem Header="Settings" Click="SettingsMenuItems_Click" Foreground="Black"/>
                 <MenuItem Header="Time Statistics" Click="TimeStatistics_Click" Foreground="Black" />
-                <MenuItem Header="Choose Fractal" Click="ChooseFractal_Click" Foreground="Black" />
-                <MenuItem Header="Help" Click="Help_Click" Foreground="Black" />
+                <MenuItem Command="Help" Foreground="Black" />
             </MenuItem>
         </Menu>
         <local:Displayer x:Name="Displayer"></local:Displayer>

@@ -101,6 +101,7 @@
     <Compile Include="ColorGenerator\MaxIterationDependantColorGenerator.cs" />
     <Compile Include="ColorGenerator\MultipliedBaseColorGenerator.cs" />
     <Compile Include="ColorGenerator\SmoothColorGenerator.cs" />
+    <Compile Include="CustomCommands.cs" />
     <Compile Include="FractalCalculator\BurningShipCalculator.cs" />
     <Compile Include="FractalCalculator\JuliaCalculator.cs" />
     <Compile Include="FractalCalculator\TricornCalculator.cs" />

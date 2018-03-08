@@ -24,32 +24,33 @@ namespace FractalVisualizer
             switch (e.Key)
             {
                 case Key.Space:
+                case Key.E:
                     Displayer.ZoomIn();
                     Displayer.RefreshImageAsync();
                     break;
-                case Key.LeftCtrl:
-                case Key.RightCtrl:
+                case Key.LeftShift:
+                case Key.Q:
                     Displayer.ZoomOut();
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.Up:
                 case Key.W:
-                    Displayer.GoUp(Keyboard.IsKeyDown(Key.LeftShift));
+                    Displayer.GoUp(Keyboard.IsKeyDown(Key.CapsLock));
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.Down:
                 case Key.S:
-                    Displayer.GoDown(Keyboard.IsKeyDown(Key.LeftShift));
+                    Displayer.GoDown(Keyboard.IsKeyDown(Key.CapsLock));
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.Left:
                 case Key.A:
-                    Displayer.GoLeft(Keyboard.IsKeyDown(Key.LeftShift));
+                    Displayer.GoLeft(Keyboard.IsKeyDown(Key.CapsLock));
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.Right:
                 case Key.D:
-                    Displayer.GoRight(Keyboard.IsKeyDown(Key.LeftShift));
+                    Displayer.GoRight(Keyboard.IsKeyDown(Key.CapsLock));
                     Displayer.RefreshImageAsync();
                     break;
                 case Key.F12:
@@ -64,7 +65,7 @@ namespace FractalVisualizer
             {
                 return;
             }
-            new RenderSettingsDialog(Displayer.RenderSettings).ShowDialog();
+            new RenderSettingsDialog("Render Settings", Displayer.RenderSettings).ShowDialog();
             Displayer.RefreshImageAsync();
         }
 
@@ -103,8 +104,8 @@ namespace FractalVisualizer
         private void Help_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Controls:\n" +
-                            "Arrow-keys to move, hold left-shift to move for a smaller amount.\n" +
-                            "Space to zoom in, left-ctrl to zoom out.", 
+                            "Arrow-keys to move, hold caps-lock to move for a smaller amount.\n" +
+                            "Space or E to zoom in, Shift or Q to zoom out.", 
                             "Help", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

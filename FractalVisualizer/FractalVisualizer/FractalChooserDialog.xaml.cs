@@ -2,7 +2,9 @@
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Input;
 using FractalVisualizer.Annotations;
+using FractalVisualizer.FractalCalculator;
 
 namespace FractalVisualizer
 {
@@ -17,9 +19,12 @@ namespace FractalVisualizer
         public FractalChooserDialog([CanBeNull] FractalCalculator.FractalCalculator selectedFractal = null)
         {
             Fractals = FractalCalculator.FractalCalculator.GetFractalCalculators();
+            Fractals = Fractals.Select(x =>
+                selectedFractal == null || selectedFractal.Name != x.Name ? x : selectedFractal).ToArray();
             SelectedFractal = selectedFractal == null ? Fractals[0] : Fractals.First(x => x.Name == selectedFractal.Name);
             InitializeComponent();
             MainGrid.DataContext = this;
+            FractalSettingsGrid.DataContext = SelectedFractal;
         }
 
         public FractalCalculator.FractalCalculator[] Fractals
@@ -41,8 +46,16 @@ namespace FractalVisualizer
                 if (Equals(value, _selectedFractal)) return;
                 _selectedFractal = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsJuliaSet));
+
+                if (FractalSettingsGrid != null)
+                {
+                    FractalSettingsGrid.DataContext = value;
+                }
             }
         }
+
+        public bool IsJuliaSet => SelectedFractal is JuliaCalculator;
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
@@ -62,6 +75,19 @@ namespace FractalVisualizer
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void FractalChooserDialog_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    OK_Click(null, null);
+                    break;
+                case Key.Escape:
+                    Cancel_Click(null, null);
+                    break;
+            }
         }
     }
 }

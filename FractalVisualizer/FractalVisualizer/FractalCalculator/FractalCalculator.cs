@@ -76,6 +76,7 @@ namespace FractalVisualizer.FractalCalculator
                 new MandelbrotCalculator(1000),
                 new BurningShipCalculator(1000),
                 new TricornCalculator(1000), 
+                new JuliaCalculator(1000) 
             };
         }
     }

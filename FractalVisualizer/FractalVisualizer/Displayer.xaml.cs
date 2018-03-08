@@ -39,11 +39,9 @@ namespace FractalVisualizer
         {
             InitializeComponent();
             MainGrid.DataContext = this;
-            RenderSettings = new RenderSettings { ColorGenerator = new MultipliedBaseColorGenerator() };
+            RenderSettings = new RenderSettings { ColorGenerator = new CuttedMultipliedColorGenerator() };
             ProgressModel = new ProgressModel();
             InitFromY(RenderSettings);
-            //_imageGenerator = new MandelbrotImageGenerator(RenderSettings, ProgressModel);
-            //_imageGenerator = new TricornImageGenerator(RenderSettings, ProgressModel);
             ImageGenerator =
                 new ImageGenerator.ImageGenerator(RenderSettings, ProgressModel, new BurningShipCalculator(RenderSettings.MaxIterations));
 

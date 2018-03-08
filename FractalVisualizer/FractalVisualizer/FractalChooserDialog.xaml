@@ -8,7 +8,7 @@
              MinWidth="250"
              SizeToContent="WidthAndHeight"
              KeyDown="FractalChooserDialog_OnKeyDown"
-             Title="Choose A Fractal">
+             Title="Choose A Fractal" WindowStartupLocation="CenterScreen">
     <Grid Name="MainGrid">
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">

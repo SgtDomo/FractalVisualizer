@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="RenderSettingsDialog" Height="300" Width="300" KeyDown="RenderSettingsDialog_OnKeyDown">
+        Title="RenderSettingsDialog" Height="300" Width="300" KeyDown="RenderSettingsDialog_OnKeyDown"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type xctk:IntegerUpDown}">

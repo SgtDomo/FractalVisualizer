@@ -61,38 +61,6 @@ namespace FractalVisualizer.FractalCalculator
         public abstract (double x, double y) GetNextZ(double x, double y, double x0, double y0);
 
         /// <summary>
-        /// Squares a complex number
-        /// </summary>
-        protected Complex Square(Complex c)
-        {
-            double newReal = c.Real * c.Real - c.Imaginary * c.Imaginary;
-            double newImagenary = 2 * c.Real * c.Imaginary;
-            return new Complex(newReal, newImagenary);
-        }
-
-        /// <summary>
-        /// Calculates the absolute length of the complex vector
-        /// </summary>
-        protected double Abs(Complex complex)
-        {
-            double c = Math.Abs(complex.Real);
-            double d = Math.Abs(complex.Imaginary);
-            double r;
-            if (c > d)
-            {
-                r = d / c;
-                return c * Math.Sqrt(1.0 + r * r);
-            }
-            if (d == 0.0)
-            {
-                return c;  // c is either 0.0 or NaN
-            }
-            r = c / d;
-            return d * Math.Sqrt(1.0 + r * r);
-
-        }
-
-        /// <summary>
         /// Returns all fractal calculators (so basically all fractals this tool can display)
         /// </summary>
         /// <returns>An array representing all currently implemented fractalCalculators</returns>

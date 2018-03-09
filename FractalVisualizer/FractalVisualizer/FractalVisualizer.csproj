@@ -117,6 +117,7 @@
     <Compile Include="ImageGenerator\DirectBitmap.cs" />
     <Compile Include="ImageGenerator\ImageGenerator.cs" />
     <Compile Include="ImageGenerator\ImageUtils.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="ProgressModel.cs" />
     <Compile Include="RenderSettings.cs" />
     <Compile Include="RenderSettingsDialog.xaml.cs">

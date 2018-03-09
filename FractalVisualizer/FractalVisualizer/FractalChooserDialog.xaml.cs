@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,7 @@ namespace FractalVisualizer
     {
         private FractalCalculator.FractalCalculator _selectedFractal;
         private FractalCalculator.FractalCalculator[] _fractals;
+        private double _calculationX;
 
         public FractalChooserDialog([CanBeNull] FractalCalculator.FractalCalculator selectedFractal = null)
         {
@@ -57,6 +59,17 @@ namespace FractalVisualizer
 
         public bool IsJuliaSet => SelectedFractal is JuliaCalculator;
 
+        public double CalculationX
+        {
+            get => _calculationX;
+            set
+            {
+                if (value.Equals(_calculationX)) return;
+                _calculationX = value;
+                OnPropertyChanged();
+            }
+        }
+
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             DialogResult = false;
@@ -67,6 +80,14 @@ namespace FractalVisualizer
         {
             DialogResult = true;
             Close();
+        }
+
+        private void CalculateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Complex complex = MathHelper.GetEToThePowerOfXTimesI(CalculationX);
+            if (!(SelectedFractal is JuliaCalculator juliaCalculator)) return;
+            juliaCalculator.Cx = complex.Real;
+            juliaCalculator.Cy = complex.Imaginary;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

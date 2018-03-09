@@ -9,7 +9,7 @@
              SizeToContent="WidthAndHeight"
              KeyDown="FractalChooserDialog_OnKeyDown"
              Title="Choose A Fractal" WindowStartupLocation="CenterScreen">
-    <Grid Name="MainGrid">
+    <Grid Name="MainGrid" Margin="5">
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Width" Value="1.5cm"/>
@@ -53,24 +53,37 @@
                 </Style>
             </Grid.Style>
             <Grid Name="FractalSettingsGrid">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type xctk:DoubleUpDown}">
+                        <Setter Property="Height" Value="0.5cm"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0">
-                    <Label>Cx:</Label>
-                    <xctk:DoubleUpDown Value="{Binding Cx}"/>
-                </StackPanel>
+                <Label Grid.Row="0" Grid.Column="0">Cx:</Label>
+                <Label Grid.Row="0" Grid.Column="1">Cy:</Label>
 
-                <StackPanel Grid.Column="1">
-                    <Label>Cy:</Label>
-                    <xctk:DoubleUpDown Value="{Binding Cy}"/>
-                </StackPanel>
+                <xctk:DoubleUpDown Grid.Row="1" Grid.Column="0" Value="{Binding Cx}"/>
+                <xctk:DoubleUpDown Grid.Row="1" Grid.Column="1" Value="{Binding Cy}"/>
+
+                <Label Grid.Row="2" Grid.Column="0">e^(xi):</Label>
+                <xctk:DoubleUpDown Grid.Row="3" Grid.Column="0" Value="{Binding DataContext.CalculationX, ElementName=MainGrid}"/>
+                <Button Grid.Row="3" Grid.Column="1" Click="CalculateBtn_Click">Calculate</Button>
+
+
             </Grid>
         </Grid>
 
-        <StackPanel Grid.Row="3" Orientation="Horizontal" FlowDirection="RightToLeft">
+        <StackPanel Grid.Row="3" Margin="0,15,0,0" Orientation="Horizontal" FlowDirection="RightToLeft">
             <Button Click="Cancel_Click">Cancel</Button>
             <Button Click="OK_Click">OK</Button>
         </StackPanel>

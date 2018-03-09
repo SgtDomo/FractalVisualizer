@@ -36,7 +36,7 @@
                 (byte) 255,
                 (byte) (iterations * RedMultiplier),
                 (byte) (iterations * GreenMultiplier),
-                (byte) (iterations * BlueMultiplier)
+                (byte) (50 + iterations * BlueMultiplier)
             };
         }
     }

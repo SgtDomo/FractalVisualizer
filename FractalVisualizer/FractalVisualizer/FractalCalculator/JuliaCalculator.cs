@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Numerics;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using FractalVisualizer.Annotations;
 
@@ -45,7 +43,7 @@ namespace FractalVisualizer.FractalCalculator
 
         public override (double x, double y) GetNextZ(double x, double y, double x0, double y0)
         {
-            var newX = x * x - y * y + Cx;
+            double newX = x * x - y * y + Cx;
             y = 2 * x * y + Cy;
             return (newX, y);
         }

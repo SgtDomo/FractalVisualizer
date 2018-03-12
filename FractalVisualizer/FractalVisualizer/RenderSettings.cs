@@ -25,11 +25,13 @@ namespace FractalVisualizer
         private double _fromY;
         private int _threadCount;
         private ColorGenerator.ColorGenerator _colorGenerator;
+        private int _juliaRotationFrameAmount;
+        private double _juliaRotationConstantFactor;
 
         #endregion
 
         #region Constructors
-        public RenderSettings() : this(640, 360, 500, 2, 1, 2, 1, 100, -2, 1, 1, 16, new MultipliedBaseColorGenerator())
+        public RenderSettings() : this(640, 360, 500, 2, 1, 2, 1, 100, -2, 1, 1, 16, new MultipliedBaseColorGenerator(), 100, 1)
         {
         }
 
@@ -37,7 +39,7 @@ namespace FractalVisualizer
             double magnificationFactor, double currMagnification, double gifMagnificationFactor, 
             double gifStartMagnification, double gifEndMagnification, 
             double fromX, double toX, double fromY, int threadCount,
-            ColorGenerator.ColorGenerator colorGenerator)
+            ColorGenerator.ColorGenerator colorGenerator, int juliaRotationFrameAmount, double juliaRotationConstantFactor)
         {
             _resolutionX = resolutionX;
             _resolutionY = resolutionY;
@@ -51,6 +53,8 @@ namespace FractalVisualizer
             _fromY = fromY;
             _threadCount = threadCount;
             _colorGenerator = colorGenerator;
+            _juliaRotationFrameAmount = juliaRotationFrameAmount;
+            _juliaRotationConstantFactor = juliaRotationConstantFactor;
 
             MaxIterations = maxIterations; //important to set maxIterations also at ColorGenerator if it is dependant on maxIterations
         }
@@ -210,7 +214,29 @@ namespace FractalVisualizer
                 OnPropertyChanged();
             }
         }
-#endregion
+
+        public int JuliaRotationFrameAmount
+        {
+            get => _juliaRotationFrameAmount;
+            set
+            {
+                _juliaRotationFrameAmount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double JuliaRotationConstantFactor
+        {
+            get => _juliaRotationConstantFactor;
+            set
+            {
+                if (value.Equals(_juliaRotationConstantFactor)) return;
+                _juliaRotationConstantFactor = value;
+                OnPropertyChanged();
+            }
+        }
+
+        #endregion
 
         #region Computed Properties
         public double Dx => XDistance / ResolutionX;
@@ -255,7 +281,7 @@ namespace FractalVisualizer
             return new RenderSettings(ResolutionX, ResolutionY, MaxIterations, 
                 MagnificationFactor, CurrMagnification, GifMagnificationFactor, 
                 GifStartMagnification, GifEndMagnification, FromX, ToX, FromY, 
-                ThreadCount, ColorGenerator);
+                ThreadCount, ColorGenerator, JuliaRotationFrameAmount, JuliaRotationConstantFactor);
         }
 
         #endregion

@@ -113,5 +113,10 @@ namespace FractalVisualizer
         {
             Displayer.ChooseFractal();
         }
+
+        private void JuliaRotationExport_OnClick(object sender, ExecutedRoutedEventArgs e)
+        {
+            Displayer.ExportRotatingJuliaGif();
+        }
     }
 }

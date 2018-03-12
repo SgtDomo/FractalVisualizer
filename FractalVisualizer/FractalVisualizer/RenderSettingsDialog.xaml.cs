@@ -8,10 +8,11 @@ namespace FractalVisualizer
     /// </summary>
     public partial class RenderSettingsDialog
     {
-        public RenderSettingsDialog(string dialogTitle, RenderSettings renderSettings, bool exportMode = false, bool gifMode = false)
+        public RenderSettingsDialog(string dialogTitle, RenderSettings renderSettings, bool exportMode = false, bool gifMode = false, bool juliaRotationMode = false)
         {
             GifRowHeight = gifMode ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
             NonExportRowHeight = exportMode ? new GridLength(0) : new GridLength(1, GridUnitType.Star);
+            JuliaRotationRowHeight = juliaRotationMode ? new GridLength(1, GridUnitType.Star) : new GridLength(0);
             InitializeComponent();
             RenderSettings = renderSettings;
             DataContext = this;
@@ -23,6 +24,8 @@ namespace FractalVisualizer
         public GridLength GifRowHeight { get; set; }
 
         public GridLength NonGifRowHeight { get; set; }
+
+        public GridLength JuliaRotationRowHeight { get; set; }
 
         public RenderSettings RenderSettings { get; set; }
 

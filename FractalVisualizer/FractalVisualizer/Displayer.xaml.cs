@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -268,6 +269,61 @@ namespace FractalVisualizer
                                     $"({(double)millis / gifEnc.Frames.Count}ms / frame)");
                 });
 
+            }
+        }
+
+        public void ExportRotatingJuliaGif()
+        {
+            RenderSettings renderSettings = RenderSettings.Copy();
+            if (new RenderSettingsDialog("Julia Set Rotation Export Settings", renderSettings, true, juliaRotationMode: true)
+                    .ShowDialog() != true)
+            {
+                return;
+            }
+            var saveFileDialog = new SaveFileDialog {Filter = "gif | *.gif"};
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                DisableInputWhileAsync(() =>
+                {
+
+                    FractalCalculator.FractalCalculator previousCalculator = ImageGenerator.FractalCalculator;
+
+                    if (ProgressModel != null)
+                    {
+                        ProgressModel.Min = 0;
+                        ProgressModel.Max = renderSettings.JuliaRotationFrameAmount * renderSettings.ThreadCount;
+                        ProgressModel.Value = 0;
+                    }
+
+                    var gifEnc = new GifBitmapEncoder();
+
+                    ImageGenerator.FractalCalculator = new JuliaCalculator(renderSettings.MaxIterations);
+                    var juliaCalculator = (JuliaCalculator) ImageGenerator.FractalCalculator;
+
+                    const double max = Math.PI * 2;
+                    double increment = max / renderSettings.JuliaRotationFrameAmount;
+                    for (double x = 0; x < max; x += increment)
+                    {
+                        Complex c = MathHelper.GetEToThePowerOfXTimesI(x);
+                        c *= renderSettings.JuliaRotationConstantFactor;
+                        juliaCalculator.Cx = c.Real;
+                        juliaCalculator.Cy = c.Imaginary;
+                        var bmp = ImageGenerator.GenerateBitmap(renderSettings, false).GetHbitmap();
+                        var src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                            bmp,
+                            IntPtr.Zero,
+                            Int32Rect.Empty,
+                            BitmapSizeOptions.FromEmptyOptions());
+                        gifEnc.Frames.Add(BitmapFrame.Create(src));
+                    }
+
+                    using (var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+                    {
+                        gifEnc.Save(fileStream);
+                    }
+
+                    ImageGenerator.FractalCalculator = previousCalculator;
+                });
             }
         }
 

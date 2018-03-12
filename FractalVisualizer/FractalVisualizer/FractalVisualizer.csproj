@@ -110,6 +110,7 @@
     <Compile Include="CustomCommands.cs" />
     <Compile Include="FractalCalculator\BurningShipCalculator.cs" />
     <Compile Include="FractalCalculator\JuliaCalculator.cs" />
+    <Compile Include="FractalCalculator\TestCalculator.cs" />
     <Compile Include="FractalCalculator\TricornCalculator.cs" />
     <Compile Include="FractalChooserDialog.xaml.cs">
       <DependentUpon>FractalChooserDialog.xaml</DependentUpon>

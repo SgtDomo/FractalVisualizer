@@ -103,10 +103,7 @@ namespace FractalVisualizer
 
         private void Help_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Controls:\n" +
-                            "Arrow-keys to move, hold caps-lock to move for a smaller amount.\n" +
-                            "Space or E to zoom in, Shift or Q to zoom out.", 
-                            "Help", MessageBoxButton.OK, MessageBoxImage.Information);
+            System.Diagnostics.Process.Start("http://www.brndev.com/FractalVisualizer/");
         }
 
         private void ChooseFractal_Click(object sender, RoutedEventArgs e)

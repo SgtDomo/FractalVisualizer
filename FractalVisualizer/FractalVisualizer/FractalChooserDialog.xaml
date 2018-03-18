@@ -43,10 +43,10 @@
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsJuliaSet}" Value="True">
+                        <DataTrigger Binding="{Binding ShowConstantEditing}" Value="True">
                             <Setter Property="Visibility" Value="Visible"></Setter>
                         </DataTrigger>
-                        <DataTrigger Binding="{Binding IsJuliaSet}" Value="False">
+                        <DataTrigger Binding="{Binding ShowConstantEditing}" Value="False">
                             <Setter Property="Visibility" Value="Collapsed"></Setter>
                         </DataTrigger>
                     </Style.Triggers>

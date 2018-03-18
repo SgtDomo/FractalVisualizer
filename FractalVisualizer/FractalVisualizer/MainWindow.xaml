@@ -13,11 +13,11 @@
         <CommandBinding Command="Help" Executed="Help_Click"/>
         <CommandBinding Command="Save" Executed="ImageExport_OnClick"/>
         <CommandBinding Command="local:CustomCommands.GifExport" Executed="GifExport_OnClick"/>
-        <CommandBinding Command="local:CustomCommands.JuliaRotationExport" Executed="JuliaRotationExport_OnClick"/>
+        <CommandBinding Command="local:CustomCommands.ConstantRotationExport" Executed="ConstantRotationExport_OnClick"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="E" Modifiers="Control" Command="local:CustomCommands.GifExport" Gesture="Ctrl+E"></KeyBinding>
-        <KeyBinding Key="J" Modifiers="Control" Command="local:CustomCommands.JuliaRotationExport" Gesture="Ctrl+J"></KeyBinding>
+        <KeyBinding Key="J" Modifiers="Control" Command="local:CustomCommands.ConstantRotationExport" Gesture="Ctrl+J"></KeyBinding>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
@@ -25,7 +25,7 @@
                 <MenuItem Command="Copy" Header="Copy To Clipboard" Click="CopyToClickBoard_Click" Foreground="Black"></MenuItem>
                 <MenuItem Command="Save" Header="Image Export" Foreground="Black"/>
                 <MenuItem Command="local:CustomCommands.GifExport" Header="Gif Export" Foreground="Black" InputGestureText="Ctrl+E"/>
-                <MenuItem Command="local:CustomCommands.JuliaRotationExport" Header="Julia Set Rotation Export" Foreground="Black" InputGestureText="Ctrl+J"/>
+                <MenuItem Command="local:CustomCommands.ConstantRotationExport" Header="Constant Rotation Export" Foreground="Black" InputGestureText="Ctrl+J"/>
             </MenuItem>
             <MenuItem Header="View">
                 <MenuItem Header="Choose Fractal" Click="ChooseFractal_Click" Foreground="Black"  />

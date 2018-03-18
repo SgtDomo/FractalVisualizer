@@ -272,21 +272,31 @@ namespace FractalVisualizer
             }
         }
 
-        public void ExportRotatingJuliaGif()
+        public void ExportRotatingConstantGif()
         {
-            RenderSettings renderSettings = RenderSettings.Copy();
+            var fractalChooserDialog = new FractalChooserDialog(null,
+                    FractalCalculator.FractalCalculator.GetFractalCalculators().Where(x => x is FractalCalculatorWithConstant).ToArray(), false);
+
+            if (fractalChooserDialog.ShowDialog() != true)
+            {
+                return;
+            }
+
+            var calculator = (FractalCalculatorWithConstant) fractalChooserDialog.SelectedFractal;
+
+            var renderSettings = RenderSettings.Copy();
             if (new RenderSettingsDialog("Julia Set Rotation Export Settings", renderSettings, true, juliaRotationMode: true)
                     .ShowDialog() != true)
             {
                 return;
             }
+
             var saveFileDialog = new SaveFileDialog {Filter = "gif | *.gif"};
             if (saveFileDialog.ShowDialog() == true)
             {
                 DisableInputWhileAsync(() =>
                 {
-
-                    FractalCalculator.FractalCalculator previousCalculator = ImageGenerator.FractalCalculator;
+                    var imageGenerator = new ImageGenerator.ImageGenerator(renderSettings, ProgressModel, calculator);
 
                     if (ProgressModel != null)
                     {
@@ -297,18 +307,15 @@ namespace FractalVisualizer
 
                     var gifEnc = new GifBitmapEncoder();
 
-                    ImageGenerator.FractalCalculator = new JuliaCalculator(renderSettings.MaxIterations);
-                    var juliaCalculator = (JuliaCalculator) ImageGenerator.FractalCalculator;
-
                     const double max = Math.PI * 2;
                     double increment = max / renderSettings.JuliaRotationFrameAmount;
                     for (double x = 0; x < max; x += increment)
                     {
                         Complex c = MathHelper.GetEToThePowerOfXTimesI(x);
                         c *= renderSettings.JuliaRotationConstantFactor;
-                        juliaCalculator.Cx = c.Real;
-                        juliaCalculator.Cy = c.Imaginary;
-                        var bmp = ImageGenerator.GenerateBitmap(renderSettings, false).GetHbitmap();
+                        calculator.Cx = c.Real;
+                        calculator.Cy = c.Imaginary;
+                        var bmp = imageGenerator.GenerateBitmap(renderSettings, false).GetHbitmap();
                         var src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
                             bmp,
                             IntPtr.Zero,
@@ -321,8 +328,6 @@ namespace FractalVisualizer
                     {
                         gifEnc.Save(fileStream);
                     }
-
-                    ImageGenerator.FractalCalculator = previousCalculator;
                 });
             }
         }

@@ -2,7 +2,7 @@
 
 namespace FractalVisualizer.FractalCalculator
 {
-    class TestCalculator : FractalCalculator
+    public class TestCalculator : FractalCalculator
     {
         public TestCalculator(int maxIterations) : base("Test", maxIterations)
         {
@@ -10,10 +10,8 @@ namespace FractalVisualizer.FractalCalculator
 
         public override (double x, double y) GetNextZ(double x, double y, double x0, double y0)
         {
-            x = x - x0;
-            y = y + y0;
-            double newX = (x * x - y * y) + x0;
-            y = 2 * x * y - y0;
+            double newX = (x * x * x - 3 * x * y * y) - 0.54;
+            y = 3 * x * x * y - y * y * y + 0.196;
             return (newX, y);
         }
     }

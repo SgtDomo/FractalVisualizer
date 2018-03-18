@@ -109,9 +109,11 @@
     <Compile Include="ColorGenerator\SmoothColorGenerator.cs" />
     <Compile Include="CustomCommands.cs" />
     <Compile Include="FractalCalculator\BurningShipCalculator.cs" />
+    <Compile Include="FractalCalculator\FractalCalculatorWithConstant.cs" />
     <Compile Include="FractalCalculator\JuliaCalculator.cs" />
     <Compile Include="FractalCalculator\TestCalculator.cs" />
     <Compile Include="FractalCalculator\TricornCalculator.cs" />
+    <Compile Include="FractalCalculator\ZCubedPlusCCalculator.cs" />
     <Compile Include="FractalChooserDialog.xaml.cs">
       <DependentUpon>FractalChooserDialog.xaml</DependentUpon>
     </Compile>

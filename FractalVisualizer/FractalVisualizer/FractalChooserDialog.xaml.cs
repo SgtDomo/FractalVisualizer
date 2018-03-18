@@ -18,11 +18,16 @@ namespace FractalVisualizer
         private FractalCalculator.FractalCalculator[] _fractals;
         private double _calculationX;
 
-        public FractalChooserDialog([CanBeNull] FractalCalculator.FractalCalculator selectedFractal = null)
+        private readonly bool _showConstantEditing;
+
+        public FractalChooserDialog([CanBeNull] FractalCalculator.FractalCalculator selectedFractal = null, [CanBeNull] FractalCalculator.FractalCalculator[] fractalCalculators = null, bool showConstantEditing = true)
         {
-            Fractals = FractalCalculator.FractalCalculator.GetFractalCalculators();
+            _showConstantEditing = showConstantEditing;
+
+            Fractals = fractalCalculators ?? FractalCalculator.FractalCalculator.GetFractalCalculators();
             Fractals = Fractals.Select(x =>
-                selectedFractal == null || selectedFractal.Name != x.Name ? x : selectedFractal).ToArray();
+                selectedFractal == null || selectedFractal.Name != x.Name ? x : selectedFractal).ToArray(); // replaces the calculator inside the fractals array with the selected array (so that the settings of the selected are applied)
+
             SelectedFractal = selectedFractal == null ? Fractals[0] : Fractals.First(x => x.Name == selectedFractal.Name);
             InitializeComponent();
             MainGrid.DataContext = this;
@@ -48,7 +53,7 @@ namespace FractalVisualizer
                 if (Equals(value, _selectedFractal)) return;
                 _selectedFractal = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(IsJuliaSet));
+                OnPropertyChanged(nameof(ShowConstantEditing));
 
                 if (FractalSettingsGrid != null)
                 {
@@ -57,7 +62,7 @@ namespace FractalVisualizer
             }
         }
 
-        public bool IsJuliaSet => SelectedFractal is JuliaCalculator;
+        public bool ShowConstantEditing => SelectedFractal is FractalCalculatorWithConstant && _showConstantEditing;
 
         public double CalculationX
         {
@@ -85,9 +90,9 @@ namespace FractalVisualizer
         private void CalculateBtn_Click(object sender, RoutedEventArgs e)
         {
             Complex complex = MathHelper.GetEToThePowerOfXTimesI(CalculationX);
-            if (!(SelectedFractal is JuliaCalculator juliaCalculator)) return;
-            juliaCalculator.Cx = complex.Real;
-            juliaCalculator.Cy = complex.Imaginary;
+            if (!(SelectedFractal is FractalCalculatorWithConstant fractalCalculatorWithConstant)) return;
+            fractalCalculatorWithConstant.Cx = complex.Real;
+            fractalCalculatorWithConstant.Cy = complex.Imaginary;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

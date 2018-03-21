@@ -277,7 +277,7 @@ namespace FractalVisualizer
 
             var calculator = (FractalCalculatorWithConstant) fractalChooserDialog.SelectedFractal;
 
-            var renderSettings = RenderSettings.Copy();
+            RenderSettings renderSettings = RenderSettings.Copy();
             if (new RenderSettingsDialog("Julia Set Rotation Export Settings", renderSettings, true, juliaRotationMode: true)
                     .ShowDialog() != true)
             {
@@ -289,34 +289,9 @@ namespace FractalVisualizer
             {
                 DisableInputWhileAsync(() =>
                 {
-                    var imageGenerator = new ImageGenerator.ImageGenerator(renderSettings, ProgressModel, calculator);
 
-                    if (ProgressModel != null)
-                    {
-                        ProgressModel.Min = 0;
-                        ProgressModel.Max = renderSettings.JuliaRotationFrameAmount * renderSettings.ThreadCount;
-                        ProgressModel.Value = 0;
-                    }
-
-                    var gifEnc = new GifBitmapEncoder();
-
-                    const double max = Math.PI * 2;
-                    double increment = max / renderSettings.JuliaRotationFrameAmount;
-                    for (double x = 0; x < max; x += increment)
-                    {
-                        Complex c = MathHelper.GetEToThePowerOfXTimesI(x);
-                        c *= renderSettings.JuliaRotationConstantFactor;
-                        calculator.Cx = c.Real;
-                        calculator.Cy = c.Imaginary;
-                        var bmp = imageGenerator.GenerateBitmap(renderSettings, false).GetHbitmap();
-                        var src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
-                            bmp,
-                            IntPtr.Zero,
-                            Int32Rect.Empty,
-                            BitmapSizeOptions.FromEmptyOptions());
-                        gifEnc.Frames.Add(BitmapFrame.Create(src));
-                    }
-
+                    var gifEnc = ImageGenerator.GenerateRotatingConstantGif(renderSettings, calculator);
+                    
                     using (var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {
                         gifEnc.Save(fileStream);

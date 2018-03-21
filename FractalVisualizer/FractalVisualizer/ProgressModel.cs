@@ -9,19 +9,19 @@ namespace FractalVisualizer
         private int _min;
         private int _max;
         private int _value;
-        private bool _currentlyWorking;
         private bool _increaseValueAfterEachThread;
 
-        public ProgressModel() : this(0, 1, 0, false, true)
+        private object _valueLock = new object();
+
+        public ProgressModel() : this(0, 1, 0, true)
         {
         }
 
-        public ProgressModel(int min, int max, int value, bool currentlyWorking, bool increaseValueAfterEachThread)
+        public ProgressModel(int min, int max, int value, bool increaseValueAfterEachThread)
         {
             _min = min;
             _max = max;
             _value = value;
-            _currentlyWorking = currentlyWorking;
             _increaseValueAfterEachThread = increaseValueAfterEachThread;
         }
 
@@ -51,7 +51,7 @@ namespace FractalVisualizer
         public int Value
         {
             get => _value;
-            set
+            private set
             {
                 if (value == _value) return;
                 _value = value;
@@ -71,7 +71,23 @@ namespace FractalVisualizer
             }
         }
 
-        public bool IsFinished => Value == Max;
+        public bool IsFinished => Value >= Max;
+
+        public void IncrementValue()
+        {
+            lock (_valueLock)
+            {
+                Value++;
+            }
+        }
+
+        public void SetValue(int newValue)
+        {
+            lock (_valueLock)
+            {
+                Value = newValue;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -32,9 +32,9 @@
             <TextBox Text="{Binding RenderSettings.CurrMagnification}" IsEnabled="False"/>
         </StackPanel>
         <ProgressBar Grid.Row="2"
-                     Minimum="{Binding ProgressModel.Min}" 
-                     Maximum="{Binding ProgressModel.Max}"
-                     Value="{Binding ProgressModel.Value}">
+                     Minimum="{Binding ProgressModel.Min, Mode=OneWay}" 
+                     Maximum="{Binding ProgressModel.Max, Mode=OneWay}"
+                     Value="{Binding ProgressModel.Value, Mode=OneWay}">
             <ProgressBar.Style>
                 <Style TargetType="ProgressBar">
                     <Style.Triggers>

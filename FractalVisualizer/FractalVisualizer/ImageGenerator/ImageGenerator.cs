@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Drawing;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using FractalVisualizer.FractalCalculator;
 
 namespace FractalVisualizer.ImageGenerator
 {
@@ -53,7 +55,7 @@ namespace FractalVisualizer.ImageGenerator
             {
                 ProgressModel.Min = 0;
                 ProgressModel.Max = renderSettings.ThreadCount;
-                ProgressModel.Value = 0;
+                ProgressModel.SetValue(0);
             }
 
             FractalCalculator.FractalCalculator calculator = FractalCalculator;
@@ -92,7 +94,7 @@ namespace FractalVisualizer.ImageGenerator
                 ProgressModel.Min = 0;
                 ProgressModel.Max = ((int)Math.Log(renderSettings.GifEndMagnification / renderSettings.GifStartMagnification,
                                          renderSettings.GifMagnificationFactor) + 1) * renderSettings.ThreadCount;
-                ProgressModel.Value = 0;
+                ProgressModel.SetValue(0);
             }
 
             var gEnc = new GifBitmapEncoder();
@@ -112,6 +114,42 @@ namespace FractalVisualizer.ImageGenerator
             }
 
             return gEnc;
+        }
+
+        public virtual GifBitmapEncoder GenerateRotatingConstantGif(RenderSettings renderSettings, FractalCalculatorWithConstant calculator)
+        {
+            FractalCalculator.FractalCalculator previousCalculator = FractalCalculator;
+            FractalCalculator = calculator;
+
+            if (ProgressModel != null)
+            {
+                ProgressModel.Min = 0;
+                ProgressModel.Max = renderSettings.JuliaRotationFrameAmount * renderSettings.ThreadCount;
+                ProgressModel.SetValue(0);
+            }
+
+            var gifEnc = new GifBitmapEncoder();
+
+            const double max = Math.PI * 2;
+            double increment = max / renderSettings.JuliaRotationFrameAmount;
+            for (double x = 0; x < max; x += increment)
+            {
+                Complex c = MathHelper.GetEToThePowerOfXTimesI(x);
+                c *= renderSettings.JuliaRotationConstantFactor;
+                calculator.Cx = c.Real;
+                calculator.Cy = c.Imaginary;
+                var bmp = GenerateBitmap(renderSettings, false).GetHbitmap();
+                var src = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(
+                    bmp,
+                    IntPtr.Zero,
+                    Int32Rect.Empty,
+                    BitmapSizeOptions.FromEmptyOptions());
+                gifEnc.Frames.Add(BitmapFrame.Create(src));
+            }
+
+            FractalCalculator = previousCalculator;
+
+            return gifEnc;
         }
 
         protected virtual void GenerateBitmapStrip(RenderSettings renderSettings, DirectBitmap bitmap, FractalCalculator.FractalCalculator calculator,
@@ -135,7 +173,7 @@ namespace FractalVisualizer.ImageGenerator
 
             if (ProgressModel != null && ProgressModel.IncreaseValueAfterEachThread)
             {
-                ProgressModel.Value++;
+                ProgressModel.IncrementValue();
             }
         }
     }

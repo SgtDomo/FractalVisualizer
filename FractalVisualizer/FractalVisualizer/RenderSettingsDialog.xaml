@@ -80,7 +80,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">X:</Label>
-            <TextBox Grid.Column="1" Text="{Binding RenderSettings.FromX}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding RenderSettings.CenterX}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
         </Grid>
         <Grid Grid.Row="10" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -88,7 +88,7 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Y:</Label>
-            <TextBox Grid.Column="1" Text="{Binding RenderSettings.FromY}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
+            <TextBox Grid.Column="1" Text="{Binding RenderSettings.CenterY}" Background="LightGray" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" IsReadOnly="True" Margin="5"></TextBox>
         </Grid>
 
         <TextBox Grid.Row="11" Grid.Column="0" IsReadOnly="True" Margin="5" Text="{Binding RenderSettings.CurrMagnification}" Background="LightGray" HorizontalContentAlignment="Center"></TextBox>

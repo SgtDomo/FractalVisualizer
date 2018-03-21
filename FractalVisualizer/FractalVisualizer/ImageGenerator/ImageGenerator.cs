@@ -61,7 +61,7 @@ namespace FractalVisualizer.ImageGenerator
 
             var bitmap = new DirectBitmap(renderSettings.ResolutionX, renderSettings.ResolutionY);
 
-            double dxy = (renderSettings.ToX - renderSettings.FromX) / renderSettings.ResolutionX;
+            double dxy = RenderSettings.Dx;
 
             var tasks = new Task[renderSettings.ThreadCount];
             int fromYPixel = 0;

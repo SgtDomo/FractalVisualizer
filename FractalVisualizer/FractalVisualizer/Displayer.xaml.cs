@@ -42,7 +42,6 @@ namespace FractalVisualizer
             MainGrid.DataContext = this;
             RenderSettings = new RenderSettings { ColorGenerator = new CuttedMultipliedColorGenerator() };
             ProgressModel = new ProgressModel();
-            InitFromY(RenderSettings);
             ImageGenerator =
                 new ImageGenerator.ImageGenerator(RenderSettings, ProgressModel, new MandelbrotCalculator(RenderSettings.MaxIterations));
 
@@ -110,12 +109,6 @@ namespace FractalVisualizer
                 _imageGenerator.RenderSettings = RenderSettings;
                 _imageGenerator.ProgressModel = ProgressModel;
             }
-        }
-
-        private static void InitFromY(RenderSettings renderSettings)
-        {
-            double dx = (renderSettings.ToX - renderSettings.FromX) / renderSettings.ResolutionX;
-            renderSettings.FromY = dx * renderSettings.ResolutionY / 2;
         }
 
         public void ChooseFractal()

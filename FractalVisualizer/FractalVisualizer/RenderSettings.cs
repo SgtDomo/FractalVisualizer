@@ -11,6 +11,7 @@ namespace FractalVisualizer
     {
         #region Attributes
 
+        private const double WidthAt1Magnification = 3;
 
         private int _resolutionX;
         private int _resolutionY;
@@ -20,27 +21,28 @@ namespace FractalVisualizer
         private double _gifMagnificationFactor;
         private double _gifStartMagnification;
         private double _gifEndMagnification;
-        private double _fromX;
-        private double _toX;
-        private double _fromY;
         private int _threadCount;
         private ColorGenerator.ColorGenerator _colorGenerator;
         private int _juliaRotationFrameAmount;
         private double _juliaRotationConstantFactor;
+        private double _centerY;
+        private double _centerX;
 
         #endregion
 
         #region Constructors
-        public RenderSettings() : this(640, 360, 500, 2, 1, 2, 1, 100, -2, 1, 1, 16, new MultipliedBaseColorGenerator(), 100, 1)
+        public RenderSettings() : this(640, 360, 500, 2, 1, 2, 1, 100, -0.5, 0, 16, new MultipliedBaseColorGenerator(), 100, 1)
         {
         }
 
         public RenderSettings(int resolutionX, int resolutionY, int maxIterations, 
             double magnificationFactor, double currMagnification, double gifMagnificationFactor, 
             double gifStartMagnification, double gifEndMagnification, 
-            double fromX, double toX, double fromY, int threadCount,
+            double centerX, double centerY, int threadCount,
             ColorGenerator.ColorGenerator colorGenerator, int juliaRotationFrameAmount, double juliaRotationConstantFactor)
         {
+            _centerX = centerX;
+            _centerY = centerY;
             _resolutionX = resolutionX;
             _resolutionY = resolutionY;
             _magnificationFactor = magnificationFactor;
@@ -48,9 +50,6 @@ namespace FractalVisualizer
             _gifMagnificationFactor = gifMagnificationFactor;
             _gifStartMagnification = gifStartMagnification;
             _gifEndMagnification = gifEndMagnification;
-            _fromX = fromX;
-            _toX = toX;
-            _fromY = fromY;
             _threadCount = threadCount;
             _colorGenerator = colorGenerator;
             _juliaRotationFrameAmount = juliaRotationFrameAmount;
@@ -70,6 +69,13 @@ namespace FractalVisualizer
                 if (value == _resolutionX) return;
                 _resolutionX = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Dx));
+                OnPropertyChanged(nameof(XDistance));
+                OnPropertyChanged(nameof(YDistance));
+                OnPropertyChanged(nameof(FromX));
+                OnPropertyChanged(nameof(FromY));
+                OnPropertyChanged(nameof(ToX));
+                OnPropertyChanged(nameof(ToY));
             }
         }
 
@@ -81,39 +87,35 @@ namespace FractalVisualizer
                 if (value == _resolutionY) return;
                 _resolutionY = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(YDistance));
+                OnPropertyChanged(nameof(FromY));
+                OnPropertyChanged(nameof(ToY));
             }
         }
 
-        public double FromX
+        public double CenterX
         {
-            get => _fromX;
+            get => _centerX;
             set
             {
-                if (value.Equals(_fromX)) return;
-                _fromX = value;
+                if (value.Equals(_centerX)) return;
+                _centerX = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(FromX));
+                OnPropertyChanged(nameof(ToX));
             }
         }
 
-        public double ToX
+        public double CenterY
         {
-            get => _toX;
+            get => _centerY;
             set
             {
-                if (value.Equals(_toX)) return;
-                _toX = value;
+                if (value.Equals(_centerY)) return;
+                _centerY = value;
                 OnPropertyChanged();
-            }
-        }
-
-        public double FromY
-        {
-            get => _fromY;
-            set
-            {
-                if (value.Equals(_fromY)) return;
-                _fromY = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(FromY));
+                OnPropertyChanged(nameof(ToY));
             }
         }
 
@@ -129,7 +131,6 @@ namespace FractalVisualizer
                 {
                     colorGenerator.MaxIterations = value;
                 }
-
                 OnPropertyChanged();
             }
         }
@@ -153,6 +154,13 @@ namespace FractalVisualizer
                 if (value.Equals(_currMagnification)) return;
                 _currMagnification = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Dx));
+                OnPropertyChanged(nameof(XDistance));
+                OnPropertyChanged(nameof(YDistance));
+                OnPropertyChanged(nameof(FromX));
+                OnPropertyChanged(nameof(FromY));
+                OnPropertyChanged(nameof(ToX));
+                OnPropertyChanged(nameof(ToY));
             }
         }
 
@@ -239,48 +247,42 @@ namespace FractalVisualizer
         #endregion
 
         #region Computed Properties
-        public double Dx => XDistance / ResolutionX;
+        public double Dx => WidthAt1Magnification / CurrMagnification / ResolutionX;
 
-        public double ToY => FromY - ResolutionY * Dx;
+        public double XDistance => WidthAt1Magnification / CurrMagnification; // Also Dx * ResolutionX
 
-        public double YDistance => ToY - FromY;
+        public double YDistance => Dx * ResolutionY;
 
-        public double XDistance => ToX - FromX;
+        public double FromX => CenterX - XDistance / 2;
+
+        public double ToX => CenterX + XDistance / 2;
+
+        public double FromY => CenterY + YDistance / 2;
+
+        public double ToY => CenterY - YDistance / 2;
         #endregion
 
         #region Methods
         public void ChangeMagnificationBy(double factor)
         {
-            double centerX = (ToX + FromX) / 2;
-            double centerY = (ToY + FromY) / 2;
-            double halfPixelsX = ResolutionX / 2.0;
-            double halfPixelsY = ResolutionY / 2.0;
-            double dx = Dx / factor;
-            FromX = centerX - halfPixelsX * dx;
-            ToX = centerX + halfPixelsX * dx;
-            FromY = centerY + halfPixelsY * dx;
-
             CurrMagnification *= factor;
         }
 
         public void MoveXBy(double percentage)
         {
-            double dx = Dx;
-            FromX += percentage * ResolutionX * dx;
-            ToX += percentage * ResolutionX  * dx;
+            CenterX += XDistance * percentage;
         }
 
         public void MoveYBy(double percentage)
         {
-            double dx = Dx;
-            FromY += percentage * ResolutionY * dx;
+            CenterY += XDistance * percentage;
         }
 
         public RenderSettings Copy()
         {
             return new RenderSettings(ResolutionX, ResolutionY, MaxIterations, 
                 MagnificationFactor, CurrMagnification, GifMagnificationFactor, 
-                GifStartMagnification, GifEndMagnification, FromX, ToX, FromY, 
+                GifStartMagnification, GifEndMagnification, CenterX, CenterY, 
                 ThreadCount, ColorGenerator, JuliaRotationFrameAmount, JuliaRotationConstantFactor);
         }
 
@@ -296,7 +298,7 @@ namespace FractalVisualizer
                 && _maxIterations == other._maxIterations && _magnificationFactor.Equals(other._magnificationFactor)
                 && _currMagnification.Equals(other._currMagnification) && _gifMagnificationFactor.Equals(other._gifMagnificationFactor)
                 && _gifStartMagnification.Equals(other._gifStartMagnification) && _gifEndMagnification.Equals(other._gifEndMagnification)
-                && _fromX.Equals(other._fromX) && _toX.Equals(other._toX) && _fromY.Equals(other._fromY)
+                && _centerX.Equals(other._centerX) && _centerY.Equals(other._centerY)
                 && _threadCount == other._threadCount && Equals(_colorGenerator, other._colorGenerator);
         }
 
@@ -320,9 +322,8 @@ namespace FractalVisualizer
                 hashCode = (hashCode * 397) ^ _gifMagnificationFactor.GetHashCode();
                 hashCode = (hashCode * 397) ^ _gifStartMagnification.GetHashCode();
                 hashCode = (hashCode * 397) ^ _gifEndMagnification.GetHashCode();
-                hashCode = (hashCode * 397) ^ _fromX.GetHashCode();
-                hashCode = (hashCode * 397) ^ _toX.GetHashCode();
-                hashCode = (hashCode * 397) ^ _fromY.GetHashCode();
+                hashCode = (hashCode * 397) ^ _centerX.GetHashCode();
+                hashCode = (hashCode * 397) ^ _centerY.GetHashCode();
                 hashCode = (hashCode * 397) ^ _threadCount;
                 hashCode = (hashCode * 397) ^ (_colorGenerator != null ? _colorGenerator.GetHashCode() : 0);
                 return hashCode;

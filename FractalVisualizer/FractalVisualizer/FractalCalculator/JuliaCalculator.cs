@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using FractalVisualizer.Annotations;
-
-namespace FractalVisualizer.FractalCalculator
+﻿namespace FractalVisualizer.FractalCalculator
 {
     /// <summary>
     /// https://en.wikipedia.org/wiki/Julia_set
@@ -10,7 +6,7 @@ namespace FractalVisualizer.FractalCalculator
     public class JuliaCalculator : FractalCalculatorWithConstant
     {
 
-        public JuliaCalculator(int maxIterations) : base("Julia Set", maxIterations)
+        public JuliaCalculator(int maxIterations) : base("Julia Set", maxIterations, (0, 0))
         {
             Cx = -0.7269;
             Cy = 0.1889;

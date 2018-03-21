@@ -9,7 +9,7 @@
         {
         }
 
-        public MandelbrotCalculator(int maxIterations) : base("Mandelbrot", maxIterations)
+        public MandelbrotCalculator(int maxIterations) : base("Mandelbrot", maxIterations, (-0.5, 0))
         {
         }
 

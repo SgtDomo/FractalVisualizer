@@ -14,10 +14,12 @@
         <CommandBinding Command="Save" Executed="ImageExport_OnClick"/>
         <CommandBinding Command="local:CustomCommands.GifExport" Executed="GifExport_OnClick"/>
         <CommandBinding Command="local:CustomCommands.ConstantRotationExport" Executed="ConstantRotationExport_OnClick"/>
+        <CommandBinding Command="local:CustomCommands.ResetView" Executed="ResetView_OnClick"/>
     </Window.CommandBindings>
     <Window.InputBindings>
-        <KeyBinding Key="E" Modifiers="Control" Command="local:CustomCommands.GifExport" Gesture="Ctrl+E"></KeyBinding>
-        <KeyBinding Key="J" Modifiers="Control" Command="local:CustomCommands.ConstantRotationExport" Gesture="Ctrl+J"></KeyBinding>
+        <KeyBinding Key="E" Modifiers="Control" Command="local:CustomCommands.GifExport" Gesture="Ctrl+E"/>
+        <KeyBinding Key="J" Modifiers="Control" Command="local:CustomCommands.ConstantRotationExport" Gesture="Ctrl+J"/>
+        <KeyBinding Key="R" Command="local:CustomCommands.ResetView"></KeyBinding>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
@@ -31,6 +33,7 @@
                 <MenuItem Header="Choose Fractal" Click="ChooseFractal_Click" Foreground="Black"  />
                 <MenuItem Header="Settings" Click="SettingsMenuItems_Click" Foreground="Black"/>
                 <MenuItem Header="Time Statistics" Click="TimeStatistics_Click" Foreground="Black" />
+                <MenuItem Header="Reset View" Command="local:CustomCommands.ResetView" InputGestureText="R" Foreground="Black"></MenuItem>
                 <MenuItem Command="Help" Foreground="Black" />
             </MenuItem>
         </Menu>

@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
@@ -290,7 +289,7 @@ namespace FractalVisualizer
                 DisableInputWhileAsync(() =>
                 {
 
-                    var gifEnc = ImageGenerator.GenerateRotatingConstantGif(renderSettings, calculator);
+                    GifBitmapEncoder gifEnc = ImageGenerator.GenerateRotatingConstantGif(renderSettings, calculator);
                     
                     using (var fileStream = new FileStream(saveFileDialog.FileName, FileMode.Create))
                     {
@@ -298,6 +297,15 @@ namespace FractalVisualizer
                     }
                 });
             }
+        }
+
+        public void ResetView()
+        {
+            (double x, double y) = ImageGenerator.FractalCalculator.DefaultPosition;
+            RenderSettings.CenterX = x;
+            RenderSettings.CenterY = y;
+            RenderSettings.CurrMagnification = 1;
+            RefreshImageAsync();
         }
 
         public void ShowStatisics()

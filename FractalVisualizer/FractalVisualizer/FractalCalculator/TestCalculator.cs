@@ -4,7 +4,7 @@ namespace FractalVisualizer.FractalCalculator
 {
     public class TestCalculator : FractalCalculator
     {
-        public TestCalculator(int maxIterations) : base("Test", maxIterations)
+        public TestCalculator(int maxIterations) : base("Test", maxIterations, (0, 0))
         {
         }
 

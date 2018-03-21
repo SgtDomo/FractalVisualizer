@@ -9,7 +9,8 @@ namespace FractalVisualizer.FractalCalculator
         private double _cx;
         private double _cy;
 
-        protected FractalCalculatorWithConstant(string name, int maxIterations) : base(name, maxIterations)
+        protected FractalCalculatorWithConstant(string name, int maxIterations, (double x, double y) defaultPosition) 
+            : base(name, maxIterations, defaultPosition)
         {
             _cx = 0;
             _cy = 0;

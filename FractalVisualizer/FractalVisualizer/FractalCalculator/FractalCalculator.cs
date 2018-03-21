@@ -5,10 +5,11 @@ namespace FractalVisualizer.FractalCalculator
 {
     public abstract class FractalCalculator
     {
-        protected FractalCalculator(string name, int maxIterations)
+        protected FractalCalculator(string name, int maxIterations, (double x, double y) defaultPosition)
         {
             MaxIterations = maxIterations;
             Name = name;
+            DefaultPosition = defaultPosition;
         }
 
         public int MaxIterations { get; set; }
@@ -17,6 +18,13 @@ namespace FractalVisualizer.FractalCalculator
         /// Name of the fractal
         /// </summary>
         public string Name { get; set; }
+
+
+        /// <summary>
+        /// Determines the so to say center of the fractal - where the 
+        /// position should be to have a good view over it.
+        /// </summary>
+        public (double x, double y) DefaultPosition { get; set; }
 
         /// <summary>
         /// Calculates the Iterations needed to exeed the bound defined by the fractal. If the iterations reach MaxIterations -1 will be returned

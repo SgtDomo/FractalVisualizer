@@ -2,7 +2,7 @@
 {
     public class ZCubedPlusCCalculator : FractalCalculatorWithConstant
     {
-        public ZCubedPlusCCalculator( int maxIterations) : base("z^3 + c", maxIterations)
+        public ZCubedPlusCCalculator( int maxIterations) : base("z^3 + c", maxIterations, (0, 0))
         {
             Cx = -0.54;
             Cy = 0.196;

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FractalVisualizer.FractalCalculator
 {
@@ -12,7 +7,7 @@ namespace FractalVisualizer.FractalCalculator
     /// </summary>
     class BurningShipCalculator : FractalCalculator
     {
-        public BurningShipCalculator(int maxIterations) : base("Burning Ship", maxIterations)
+        public BurningShipCalculator(int maxIterations) : base("Burning Ship", maxIterations, (-0.75, 0.375))
         {
         }
 

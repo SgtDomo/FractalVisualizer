@@ -115,5 +115,10 @@ namespace FractalVisualizer
         {
             Displayer.ExportRotatingConstantGif();
         }
+
+        private void ResetView_OnClick(object sender, ExecutedRoutedEventArgs e)
+        {
+            Displayer.ResetView();
+        }
     }
 }

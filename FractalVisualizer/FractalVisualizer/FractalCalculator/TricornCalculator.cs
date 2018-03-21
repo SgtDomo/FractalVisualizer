@@ -7,7 +7,7 @@ namespace FractalVisualizer.FractalCalculator
     /// </summary>
     class TricornCalculator : FractalCalculator
     {
-        public TricornCalculator(int maxIterations) : base("Tricorn", maxIterations)
+        public TricornCalculator(int maxIterations) : base("Tricorn", maxIterations, (0, 0))
         {
         }
 

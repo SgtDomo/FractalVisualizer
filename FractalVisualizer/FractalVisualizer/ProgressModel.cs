@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using FractalVisualizer.Annotations;
 
 namespace FractalVisualizer
@@ -49,6 +44,7 @@ namespace FractalVisualizer
                 if (value == _max) return;
                 _max = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsFinished));
             }
         }
 
@@ -60,6 +56,7 @@ namespace FractalVisualizer
                 if (value == _value) return;
                 _value = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(IsFinished));
             }
         }
 
@@ -73,6 +70,8 @@ namespace FractalVisualizer
                 OnPropertyChanged();
             }
         }
+
+        public bool IsFinished => Value == Max;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

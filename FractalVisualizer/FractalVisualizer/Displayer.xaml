@@ -13,6 +13,16 @@
         <ProgressBar Grid.Row="1"
                      Minimum="{Binding ProgressModel.Min}" 
                      Maximum="{Binding ProgressModel.Max}"
-                     Value="{Binding ProgressModel.Value}"/>
+                     Value="{Binding ProgressModel.Value}">
+            <ProgressBar.Style>
+                <Style TargetType="ProgressBar">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ProgressModel.IsFinished}" Value="true">
+                            <Setter Property="Foreground" Value="DarkGreen"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ProgressBar.Style>
+            </ProgressBar>
     </Grid>
 </UserControl>

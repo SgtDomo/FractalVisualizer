@@ -7,10 +7,31 @@
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="0.15cm"/>
         </Grid.RowDefinitions>
         <Image Grid.Row="0" Source="{Binding Img}"></Image>
-        <ProgressBar Grid.Row="1"
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+            <StackPanel.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                    <Setter Property="MinWidth" Value="3cm"/>
+                    <Setter Property="Height" Value="0.5cm"/>
+                    <Setter Property="Margin" Value="0,0,1cm,0"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            <Label>X:</Label>
+            <TextBox Text="{Binding RenderSettings.CenterX}" IsEnabled="False"/>
+            <Label>Y:</Label>
+            <TextBox Text="{Binding RenderSettings.CenterY}" IsEnabled="False"/>
+            <Label>Magnification:</Label>
+            <TextBox Text="{Binding RenderSettings.CurrMagnification}" IsEnabled="False"/>
+        </StackPanel>
+        <ProgressBar Grid.Row="2"
                      Minimum="{Binding ProgressModel.Min}" 
                      Maximum="{Binding ProgressModel.Max}"
                      Value="{Binding ProgressModel.Value}">

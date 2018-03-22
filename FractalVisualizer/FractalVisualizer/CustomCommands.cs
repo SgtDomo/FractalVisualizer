@@ -7,5 +7,8 @@ namespace FractalVisualizer
         public static RoutedCommand GifExport = new RoutedCommand();
         public static RoutedCommand ConstantRotationExport = new RoutedCommand();
         public static RoutedCommand ResetView = new RoutedCommand();
+        public static RoutedCommand ChooseFractal = new RoutedCommand();
+        public static RoutedCommand ShowSettings = new RoutedCommand();
+        public static RoutedCommand ShowTimeStats = new RoutedCommand();
     }
 }

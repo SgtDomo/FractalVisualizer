@@ -15,25 +15,31 @@
         <CommandBinding Command="local:CustomCommands.GifExport" Executed="GifExport_OnClick"/>
         <CommandBinding Command="local:CustomCommands.ConstantRotationExport" Executed="ConstantRotationExport_OnClick"/>
         <CommandBinding Command="local:CustomCommands.ResetView" Executed="ResetView_OnClick"/>
+        <CommandBinding Command="local:CustomCommands.ChooseFractal" Executed="ChooseFractal_Click"/>
+        <CommandBinding Command="local:CustomCommands.ShowSettings" Executed="SettingsMenuItems_Click"/>
+        <CommandBinding Command="local:CustomCommands.ShowTimeStats" Executed="TimeStatistics_Click"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Key="E" Modifiers="Control" Command="local:CustomCommands.GifExport" Gesture="Ctrl+E"/>
         <KeyBinding Key="J" Modifiers="Control" Command="local:CustomCommands.ConstantRotationExport" Gesture="Ctrl+J"/>
-        <KeyBinding Key="R" Command="local:CustomCommands.ResetView"></KeyBinding>
+        <KeyBinding Key="R" Command="local:CustomCommands.ResetView"/>
+        <KeyBinding Key="N" Command="local:CustomCommands.ChooseFractal"/>
+        <KeyBinding Key="M" Command="local:CustomCommands.ShowSettings"/>
+        <KeyBinding Key="T" Command="local:CustomCommands.ShowTimeStats"/>
     </Window.InputBindings>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="Black" Foreground="White">
-            <MenuItem Header="File">
-                <MenuItem Command="Copy" Header="Copy To Clipboard" Click="CopyToClickBoard_Click" Foreground="Black"></MenuItem>
-                <MenuItem Command="Save" Header="Image Export" Foreground="Black"/>
-                <MenuItem Command="local:CustomCommands.GifExport" Header="Gif Export" Foreground="Black" InputGestureText="Ctrl+E"/>
-                <MenuItem Command="local:CustomCommands.ConstantRotationExport" Header="Constant Rotation Export" Foreground="Black" InputGestureText="Ctrl+J"/>
+            <MenuItem Header="_File">
+                <MenuItem Command="Copy" Header="_Copy To Clipboard" Click="CopyToClickBoard_Click" Foreground="Black"></MenuItem>
+                <MenuItem Command="Save" Header="_Image Export" Foreground="Black"/>
+                <MenuItem Command="local:CustomCommands.GifExport" Header="_Gif Export" Foreground="Black" InputGestureText="Ctrl+E"/>
+                <MenuItem Command="local:CustomCommands.ConstantRotationExport" Header="Constant R_otation Export" Foreground="Black" InputGestureText="Ctrl+J"/>
             </MenuItem>
-            <MenuItem Header="View">
-                <MenuItem Header="Choose Fractal" Click="ChooseFractal_Click" Foreground="Black"  />
-                <MenuItem Header="Settings" Click="SettingsMenuItems_Click" Foreground="Black"/>
-                <MenuItem Header="Time Statistics" Click="TimeStatistics_Click" Foreground="Black" />
-                <MenuItem Header="Reset View" Command="local:CustomCommands.ResetView" InputGestureText="R" Foreground="Black"></MenuItem>
+            <MenuItem Header="_View">
+                <MenuItem Header="_Choose Fractal" Command="local:CustomCommands.ChooseFractal" InputGestureText="N" Foreground="Black"  />
+                <MenuItem Header="Settin_gs" Command="local:CustomCommands.ShowSettings" InputGestureText="M" Foreground="Black"/>
+                <MenuItem Header="_Time Statistics" Command="local:CustomCommands.ShowTimeStats" InputGestureText="T" Foreground="Black" />
+                <MenuItem Header="_Reset View" Command="local:CustomCommands.ResetView" InputGestureText="R" Foreground="Black"></MenuItem>
                 <MenuItem Command="Help" Foreground="Black" />
             </MenuItem>
         </Menu>

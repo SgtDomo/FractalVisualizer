@@ -81,6 +81,7 @@ namespace FractalVisualizer.FractalCalculator
                 new BurningShipCalculator(1000),
                 new TricornCalculator(1000),
                 new ZCubedPlusCCalculator(1000), 
+                new TestCalculator(1000), 
             };
         }
     }

@@ -9,4 +9,5 @@ The Controls are fairly simple:
 * Hold caps-lock while moving to make a smaller step
 * Press space or E to zoom in
 * Press shift or Q to zoom out
+* Press R to reset the view
 * In the 'File' menu-item at the top of the screen are multiple options to export the image (even as a animated gif)
